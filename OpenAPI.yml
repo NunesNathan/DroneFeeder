@@ -1,0 +1,112 @@
+---
+openapi: 3.0.3
+info:
+  title: Drone Feeder
+  version: 1.0.0-SNAPSHOT
+paths:
+  /drone:
+    get:
+      tags:
+        - Drone
+      description: returns all registered drones
+      operationId: getDrones
+      responses:
+        '200':
+          description: Get all the drones
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Drone'
+    post:
+      tags:
+        - Drone
+      operationId: register
+      responses:
+        '201':
+          description: created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Drone'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DroneDTO'
+  '/drone/{droneId}':
+    get:
+      tags:
+        - Drone
+      description: returns drone by id
+      operationId: getDrone
+      parameters:
+        - name: droneId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Get drone by id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Drone'
+components:
+  schemas:
+    Drone:
+      type: object
+      properties:
+        id:
+          format: int32
+          type: integer
+        model:
+          type: string
+        lastComponentsReview:
+          format: date
+          type: string
+        latitude:
+          type: number
+        longitude:
+          type: number
+        deliveries:
+          type: array
+          items:
+            $ref: '#/components/schemas/Delivery'
+      description: ok
+    DroneDTO:
+      type: object
+      properties:
+        model:
+          type: string
+        latitude:
+          type: number
+        longitude:
+          type: number
+      description: ok
+    Delivery:
+      type: object
+      properties:
+        id:
+          format: int32
+          type: integer
+        deliveryType:
+          type: string
+        deliveryStatus:
+          type: string
+        lastUpdate:
+          format: date
+          type: string
+        deliveredConfirmationLink:
+          type: string
+        drone:
+          $ref: '#/components/schemas/Drone'
+      description: ok
+    MensagemResult:
+      type: object
+      properties:
+        mensagem:
+          type: string
