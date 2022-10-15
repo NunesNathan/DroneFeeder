@@ -17,6 +17,7 @@ public class Delivery {
   private Integer id;
   private String deliveryType;
   private String deliveryStatus;
+  private LocalDateTime createOrder;
   private LocalDateTime lastUpdate;
   private String deliveredConfirmationLink;
   @JsonIgnoreProperties(value = {"deliveries"})
@@ -25,6 +26,12 @@ public class Delivery {
 
   public Delivery() { }
 
+  /** Delivery contructor.
+   *
+   * @param drone Owner delivery drone
+   * @param deliveryType Delivery type
+   * @param deliveryStatus Delivery status
+   */
   public Delivery(
           Drone drone,
           String deliveryType,
@@ -33,6 +40,7 @@ public class Delivery {
     this.drone = drone;
     this.deliveryType = deliveryType;
     this.deliveryStatus = deliveryStatus;
+    this.createOrder = LocalDateTime.now();
     this.lastUpdate = LocalDateTime.now();
     this.deliveredConfirmationLink = "The "
             + (deliveryType + " status is: "
@@ -61,6 +69,14 @@ public class Delivery {
 
   public void setDeliveryStatus(String deliveryStatus) {
     this.deliveryStatus = deliveryStatus;
+  }
+
+  public LocalDateTime getCreateOrder() {
+    return createOrder;
+  }
+
+  public void setCreateOrder(LocalDateTime createOrder) {
+    this.createOrder = createOrder;
   }
 
   public String getLastUpdate() {

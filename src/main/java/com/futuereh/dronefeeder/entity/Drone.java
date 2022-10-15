@@ -28,6 +28,12 @@ public class Drone {
 
   public Drone() { }
 
+  /** Drone Contructor.
+   *
+   * @param model Drone model.
+   * @param latitude Drone latitude.
+   * @param longitude Drone longitude.
+   */
   public Drone(String model, double latitude, double longitude) {
     this.model = model;
     this.lastComponentsReview = LocalDateTime.now();
