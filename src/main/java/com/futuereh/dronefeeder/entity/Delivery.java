@@ -8,7 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Delivery {
@@ -19,7 +21,9 @@ public class Delivery {
   private String deliveryStatus;
   private LocalDateTime createOrder;
   private LocalDateTime lastUpdate;
-  private String deliveredConfirmationLink;
+  @OneToOne
+  @JoinColumn(name = "confirmationLink")
+  private DeliveryVideo deliveredConfirmationLink;
   @JsonIgnoreProperties(value = {"deliveries"})
   @ManyToOne
   private Drone drone;
@@ -30,21 +34,24 @@ public class Delivery {
    *
    * @param drone Owner delivery drone
    * @param deliveryType Delivery type
-   * @param deliveryStatus Delivery status
+   * @param dv Delivery video
    */
   public Delivery(
           Drone drone,
           String deliveryType,
-          String deliveryStatus
+          DeliveryVideo dv
   ) {
+    String deliveryStatus = DeliveryStatus.PROCESSING.toString();
+    dv.setConfirmationLink("The "
+            + (deliveryType + " status is: "
+            + deliveryStatus + ", no download link enable").toLowerCase());
+
     this.drone = drone;
     this.deliveryType = deliveryType;
     this.deliveryStatus = deliveryStatus;
     this.createOrder = LocalDateTime.now();
     this.lastUpdate = LocalDateTime.now();
-    this.deliveredConfirmationLink = "The "
-            + (deliveryType + " status is: "
-            + deliveryStatus + ", no download link enable").toLowerCase();
+    this.deliveredConfirmationLink = dv;
   }
 
   public Integer getId() {
@@ -88,11 +95,11 @@ public class Delivery {
   }
 
   public String getDeliveredConfirmationLink() {
-    return deliveredConfirmationLink;
+    return deliveredConfirmationLink.getConfirmationLink();
   }
 
   public void setDeliveredConfirmationLink(String deliveredConfirmationLink) {
-    this.deliveredConfirmationLink = deliveredConfirmationLink;
+    this.deliveredConfirmationLink.setConfirmationLink(deliveredConfirmationLink);
   }
 
   public void confirmDelivery(String videoLink) {
