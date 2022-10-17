@@ -22,7 +22,7 @@ paths:
     post:
       tags:
         - Drone
-      operationId: register
+      operationId: addDrone
       responses:
         '201':
           description: created
@@ -55,6 +55,47 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Drone'
+  '/drone/{droneIdToUpdate}':
+    put:
+      tags:
+        - Drone
+      description: Update drone by id
+      operationId: updateDrone
+      parameters:
+        - name: droneIdToUpdate
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Updated drone
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Drone'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DroneDTO'
+  '/drone/{droneIdToDelete}':
+    delete:
+      tags:
+        - Drone
+      description: Delete drone by id
+      operationId: deleteDrone
+      parameters:
+        - name: droneIdToDelete
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '204':
+          description: Drone with provided id
 components:
   schemas:
     Drone:
@@ -97,6 +138,9 @@ components:
           type: string
         deliveryStatus:
           type: string
+        createOrder:
+          format: date
+          type: string
         lastUpdate:
           format: date
           type: string
@@ -105,8 +149,8 @@ components:
         drone:
           $ref: '#/components/schemas/Drone'
       description: ok
-    MensagemResult:
+    DeliveryDto:
       type: object
       properties:
-        mensagem:
+        deliveryType:
           type: string
