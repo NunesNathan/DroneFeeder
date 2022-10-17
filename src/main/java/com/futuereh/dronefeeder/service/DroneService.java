@@ -26,4 +26,8 @@ public class DroneService {
   public List<Drone> getDrones() {
     return droneRepository.findAll();
   }
+
+  public Drone getDrone(Integer droneId) {
+    return droneRepository.findById(droneId).orElseThrow(RuntimeException::new);
+  }
 }
