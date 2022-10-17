@@ -38,4 +38,11 @@ public class DroneService {
 
     return drone.updateDrone(droneDto);
   }
+
+  /** delete one drone using self id.*/
+  public void deleteById(Integer droneId) {
+    droneRepository.findById(droneId).orElseThrow(RuntimeException::new);
+
+    droneRepository.deleteById(droneId);
+  }
 }
