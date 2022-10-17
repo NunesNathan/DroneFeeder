@@ -1,6 +1,7 @@
 package com.futuereh.dronefeeder.service;
 
 import com.futuereh.dronefeeder.dto.DroneDto;
+import com.futuereh.dronefeeder.entity.Delivery;
 import com.futuereh.dronefeeder.entity.Drone;
 import com.futuereh.dronefeeder.repository.DroneRepository;
 import java.util.List;
@@ -44,5 +45,12 @@ public class DroneService {
     droneRepository.findById(droneId).orElseThrow(RuntimeException::new);
 
     droneRepository.deleteById(droneId);
+  }
+
+  public List<Delivery> getDroneDeliveries(Integer droneId) {
+    Drone drone = droneRepository
+            .findById(droneId).orElseThrow(RuntimeException::new);
+
+    return drone.getDeliveries();
   }
 }

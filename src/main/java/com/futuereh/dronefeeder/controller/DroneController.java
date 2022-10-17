@@ -1,6 +1,7 @@
 package com.futuereh.dronefeeder.controller;
 
 import com.futuereh.dronefeeder.dto.DroneDto;
+import com.futuereh.dronefeeder.entity.Delivery;
 import com.futuereh.dronefeeder.entity.Drone;
 import com.futuereh.dronefeeder.service.DroneService;
 import java.util.List;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/drones")
+@RequestMapping("/drone")
 public class DroneController {
   @Autowired
   DroneService droneService;
@@ -46,5 +47,10 @@ public class DroneController {
   public ResponseEntity<Drone> deleteDrone(@PathVariable("id") Integer droneId) {
     droneService.deleteById(droneId);
     return ResponseEntity.noContent().build();
+  }
+
+  @GetMapping("/deliveries/{id}")
+  public ResponseEntity<List<Delivery>> getDroneDeliveries(@PathVariable("id") Integer droneId) {
+    return ResponseEntity.ok(droneService.getDroneDeliveries(droneId));
   }
 }
