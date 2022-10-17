@@ -47,6 +47,7 @@ public class DroneService {
     droneRepository.deleteById(droneId);
   }
 
+  /** get all deliveries by a drone.*/
   public List<Delivery> getDroneDeliveries(Integer droneId) {
     Drone drone = droneRepository
             .findById(droneId).orElseThrow(RuntimeException::new);
