@@ -96,6 +96,28 @@ paths:
       responses:
         '204':
           description: Drone with provided id
+  '/drone/deliveries/{droneId}':
+    get:
+      tags:
+        - Drone
+      description: returns drone deliveries by id
+      operationId: getDroneDeliveries
+      parameters:
+        - name: droneId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Get drone deliveries by id
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Delivery'
 components:
   schemas:
     Drone:
