@@ -80,8 +80,8 @@ public class Delivery {
     this.deliveryStatus = deliveryStatus;
   }
 
-  public LocalDateTime getCreateOrder() {
-    return createOrder;
+  public String getCreateOrder() {
+    return createOrder.format(Constants.format);
   }
 
   public void setCreateOrder(LocalDateTime createOrder) {
