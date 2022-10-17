@@ -5,10 +5,27 @@ info:
   version: 1.0.0-SNAPSHOT
 paths:
   /drone:
+    post:
+      tags:
+        - Drone
+      description: Create a delivery
+      operationId: addDrone
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DroneDto'
+      responses:
+        '201':
+          description: Create a drone
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Drone'
     get:
       tags:
         - Drone
-      description: returns all registered drones
+      description: Returns all registered drones
       operationId: getDrones
       responses:
         '200':
@@ -19,27 +36,11 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Drone'
-    post:
-      tags:
-        - Drone
-      operationId: addDrone
-      responses:
-        '201':
-          description: created
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Drone'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/DroneDTO'
   '/drone/{droneId}':
     get:
       tags:
         - Drone
-      description: returns drone by id
+      description: Returns drone by id
       operationId: getDrone
       parameters:
         - name: droneId
@@ -68,6 +69,11 @@ paths:
           schema:
             type: integer
             format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DroneDto'
       responses:
         '200':
           description: Updated drone
@@ -75,11 +81,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Drone'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/DroneDTO'
   '/drone/{droneIdToDelete}':
     delete:
       tags:
@@ -100,7 +101,7 @@ paths:
     get:
       tags:
         - Drone
-      description: returns drone deliveries by id
+      description: Returns drone deliveries by id
       operationId: getDroneDeliveries
       parameters:
         - name: droneId
@@ -118,6 +119,119 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Delivery'
+  /delivery:
+    post:
+      tags:
+        - Delivery
+      description: Create a delivery
+      operationId: addDelivery
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeliveryDto'
+      responses:
+        '201':
+          description: Create a delivery
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Delivery'
+    get:
+      tags:
+        - Delivery
+      description: Returns all registered deliveries
+      operationId: getDeliveries
+      responses:
+        '200':
+          description: Get all the deliveries
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Delivery'
+  '/delivery/{deliveryId}':
+    get:
+      tags:
+        - Delivery
+      description: Returns delivery by id
+      operationId: getDelivery
+      parameters:
+        - name: deliveryId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Get delivery by id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Delivery'
+  '/delivery/{deliveryIdToUpdate}':
+    put:
+      tags:
+        - Delivery
+      description: Update delivery by id
+      operationId: updateDelivery
+      parameters:
+        - name: deliveryIdToUpdate
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeliveryDto'
+      responses:
+        '200':
+          description: Updated delivery
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Delivery'
+  '/delivery/{deliveryIdToDelete}':
+    delete:
+      tags:
+        - Delivery
+      description: Delete delivery by id
+      operationId: deleteDelivery
+      parameters:
+        - name: deliveryIdToDelete
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '204':
+          description: Delivery with provided id
+  '/delivery/drone/{deliveryId}':
+    get:
+      tags:
+        - Delivery
+      description: Returns delivery drones by delivery id
+      operationId: getDeliveryDrone
+      parameters:
+        - name: deliveryId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Get delivery drone by delivery id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Drone'
 components:
   schemas:
     Drone:
@@ -140,7 +254,7 @@ components:
           items:
             $ref: '#/components/schemas/Delivery'
       description: ok
-    DroneDTO:
+    DroneDto:
       type: object
       properties:
         model:
