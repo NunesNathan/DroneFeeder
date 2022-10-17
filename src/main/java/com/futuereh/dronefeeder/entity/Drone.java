@@ -1,6 +1,7 @@
 package com.futuereh.dronefeeder.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.futuereh.dronefeeder.dto.DroneDto;
 import com.futuereh.dronefeeder.utils.Constants;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -49,6 +50,10 @@ public class Drone {
     return model;
   }
 
+  public void setModel(String model) {
+    this.model = model;
+  }
+
   public String getLastComponentsReview() {
     return this.lastComponentsReview.format(Constants.format);
   }
@@ -88,5 +93,13 @@ public class Drone {
 
   public void addDelivery(Delivery deliveries) {
     this.deliveries.add(deliveries);
+  }
+
+  /** update this drone using a drone dto.*/
+  public Drone updateDrone(DroneDto droneDto) {
+    this.setModel(droneDto.getModel());
+    this.setCordinates(droneDto.getLatitude(), droneDto.getLongitude());
+
+    return this;
   }
 }

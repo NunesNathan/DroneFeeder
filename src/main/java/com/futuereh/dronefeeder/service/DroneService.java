@@ -30,4 +30,12 @@ public class DroneService {
   public Drone getDrone(Integer droneId) {
     return droneRepository.findById(droneId).orElseThrow(RuntimeException::new);
   }
+
+  /** update one drone using self id and a drone dto.*/
+  public Drone updateDrone(Integer droneId, DroneDto droneDto) {
+    Drone drone = droneRepository
+            .findById(droneId).orElseThrow(RuntimeException::new);
+
+    return drone.updateDrone(droneDto);
+  }
 }

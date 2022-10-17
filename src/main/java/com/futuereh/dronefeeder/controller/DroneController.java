@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,5 +33,11 @@ public class DroneController {
   @GetMapping("/{id}")
   public ResponseEntity<Drone> getDrone(@PathVariable("id") Integer droneId) {
     return ResponseEntity.ok(droneService.getDrone(droneId));
+  }
+
+  @PutMapping("/{id}")
+  public ResponseEntity<Drone> updateDrone(@PathVariable("id") Integer droneId,
+                           @RequestBody DroneDto droneDto) {
+    return ResponseEntity.ok(droneService.updateDrone(droneId, droneDto));
   }
 }
