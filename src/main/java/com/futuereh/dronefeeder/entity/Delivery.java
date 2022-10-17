@@ -52,6 +52,8 @@ public class Delivery {
     this.createOrder = LocalDateTime.now();
     this.lastUpdate = LocalDateTime.now();
     this.deliveredConfirmationLink = dv;
+
+    this.setDeliveryVideoDelivery();
   }
 
   public Integer getId() {
@@ -100,6 +102,10 @@ public class Delivery {
 
   public void setDeliveredConfirmationLink(String deliveredConfirmationLink) {
     this.deliveredConfirmationLink.setConfirmationLink(deliveredConfirmationLink);
+  }
+
+  public void setDeliveryVideoDelivery() {
+    this.deliveredConfirmationLink.setDelivery(this);
   }
 
   public void confirmDelivery(String videoLink) {
