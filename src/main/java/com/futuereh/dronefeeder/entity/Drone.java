@@ -17,7 +17,7 @@ import javax.persistence.OneToMany;
 @Entity
 public class Drone {
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
   private String model;
   private LocalDateTime lastComponentsReview;

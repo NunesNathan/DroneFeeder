@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.futuereh.dronefeeder.utils.Constants;
 import com.futuereh.dronefeeder.utils.DeliveryStatus;
 import java.time.LocalDateTime;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,13 +16,13 @@ import javax.persistence.OneToOne;
 @Entity
 public class Delivery {
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
   private String deliveryType;
   private String deliveryStatus;
   private LocalDateTime createOrder;
   private LocalDateTime lastUpdate;
-  @OneToOne
+  @OneToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "confirmationLink")
   private DeliveryVideo deliveredConfirmationLink;
   @JsonIgnoreProperties(value = {"deliveries"})
