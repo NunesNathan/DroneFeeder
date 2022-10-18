@@ -40,6 +40,10 @@ public class DeliveryService {
     return deliveryRepository.findAll();
   }
 
+  public Delivery getDelivery(Integer delivery) {
+    return deliveryRepository.findById(delivery).orElseThrow(RuntimeException::new);
+  }
+
   public List<DeliveryVideo> getAllLinks() {
     return deliveryVideoRepository.findAll();
   }

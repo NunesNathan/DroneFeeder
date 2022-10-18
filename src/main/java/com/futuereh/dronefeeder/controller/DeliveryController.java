@@ -32,6 +32,11 @@ public class DeliveryController {
     return deliveryService.getDeliveries();
   }
 
+  @GetMapping("/{id}")
+  public ResponseEntity<Delivery> getDelivery(@PathVariable("id") Integer deliveryId) {
+    return ResponseEntity.ok(deliveryService.getDelivery(deliveryId));
+  }
+
   @GetMapping("/links")
   public List<DeliveryVideo> getAllLinks() {
     return deliveryService.getAllLinks();
