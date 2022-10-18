@@ -10,7 +10,6 @@ import com.futuereh.dronefeeder.repository.DeliveryVideoRepository;
 import com.futuereh.dronefeeder.utils.DeliveryStatus;
 import com.futuereh.dronefeeder.utils.DeliveryType;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -47,7 +46,8 @@ public class DeliveryService {
   }
 
   /** update one delivery using self id and a delivery dto.*/
-  public Delivery updateDeliveryStatus(Integer deliveryId, UpdateDeliveryStatusDto updateDeliveryStatusDto) {
+  public Delivery updateDeliveryStatus(Integer deliveryId,
+                                       UpdateDeliveryStatusDto updateDeliveryStatusDto) {
     if (DeliveryStatus.isStatus(updateDeliveryStatusDto.getDeliveryStatus())) {
       Delivery delivery = deliveryRepository
               .findById(deliveryId).orElseThrow(RuntimeException::new);

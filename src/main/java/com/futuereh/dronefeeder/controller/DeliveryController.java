@@ -6,10 +6,9 @@ import com.futuereh.dronefeeder.entity.Delivery;
 import com.futuereh.dronefeeder.entity.DeliveryVideo;
 import com.futuereh.dronefeeder.service.DeliveryService;
 import java.util.List;
-
-import com.futuereh.dronefeeder.utils.DeliveryStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,11 +40,14 @@ public class DeliveryController {
     return ResponseEntity.ok(deliveryService.getDelivery(deliveryId));
   }
 
+  /** update delivery route.*/
   @PutMapping("/{id}")
   public ResponseEntity updateDeliveryStatus(@PathVariable("id") Integer deliveryId,
-                                                 @RequestBody UpdateDeliveryStatusDto updateDeliveryStatusDto) {
-    try{
-      return ResponseEntity.ok(deliveryService.updateDeliveryStatus(deliveryId, updateDeliveryStatusDto));
+                                                 @RequestBody UpdateDeliveryStatusDto
+                                                         updateDeliveryStatusDto) {
+    try {
+      return ResponseEntity.ok(deliveryService.updateDeliveryStatus(deliveryId,
+              updateDeliveryStatusDto));
     } catch (Exception e) {
       return ResponseEntity.status(400).body("Invalid status");
     }
