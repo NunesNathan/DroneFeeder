@@ -13,7 +13,7 @@ public class DeliveryVideo {
   private Integer id;
   @OneToOne
   private Delivery delivery;
-  private String confirmationLink;
+  private String deliveredConfirmationLink;
 
   public DeliveryVideo() { }
 
@@ -29,11 +29,11 @@ public class DeliveryVideo {
     this.delivery = delivery;
   }
 
-  public String getConfirmationLink() {
-    return confirmationLink;
+  public String getDeliveredConfirmationLink() {
+    return deliveredConfirmationLink;
   }
 
-  public void setConfirmationLink(String confirmationLink) {
-    this.confirmationLink = confirmationLink;
+  public void setDeliveredConfirmationLink(String deliveredConfirmationLink) {
+    this.deliveredConfirmationLink = deliveredConfirmationLink;
   }
 }

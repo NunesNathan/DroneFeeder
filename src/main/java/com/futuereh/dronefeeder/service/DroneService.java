@@ -13,7 +13,7 @@ public class DroneService {
   @Autowired
   DroneRepository droneRepository;
 
-  /** add one drone using a drone dto.*/
+  /** save a drone using a drone dto.*/
   public Drone addDrone(DroneDto droneDto) {
     Drone drone = new Drone(droneDto.getModel(),
             droneDto.getLatitude(),

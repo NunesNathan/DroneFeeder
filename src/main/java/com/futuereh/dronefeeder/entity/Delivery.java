@@ -1,6 +1,7 @@
 package com.futuereh.dronefeeder.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.futuereh.dronefeeder.dto.UpdateDeliveryStatusDto;
 import com.futuereh.dronefeeder.utils.Constants;
 import com.futuereh.dronefeeder.utils.DeliveryStatus;
 import java.time.LocalDateTime;
@@ -43,7 +44,7 @@ public class Delivery {
           DeliveryVideo dv
   ) {
     String deliveryStatus = DeliveryStatus.PROCESSING.toString();
-    dv.setConfirmationLink("The "
+    dv.setDeliveredConfirmationLink("The "
             + (deliveryType + " status is: "
             + deliveryStatus + ", no download link enable").toLowerCase());
 
@@ -93,16 +94,16 @@ public class Delivery {
     return this.lastUpdate.format(Constants.format);
   }
 
-  public void setLastUpdate(LocalDateTime lastUpdate) {
-    this.lastUpdate = LocalDateTime.parse(LocalDateTime.now().format(Constants.format));
+  public void setLastUpdate() {
+    this.lastUpdate = LocalDateTime.now();
   }
 
   public String getDeliveredConfirmationLink() {
-    return deliveredConfirmationLink.getConfirmationLink();
+    return deliveredConfirmationLink.getDeliveredConfirmationLink();
   }
 
   public void setDeliveredConfirmationLink(String deliveredConfirmationLink) {
-    this.deliveredConfirmationLink.setConfirmationLink(deliveredConfirmationLink);
+    this.deliveredConfirmationLink.setDeliveredConfirmationLink(deliveredConfirmationLink);
   }
 
   public void setDeliveryVideoDelivery() {
