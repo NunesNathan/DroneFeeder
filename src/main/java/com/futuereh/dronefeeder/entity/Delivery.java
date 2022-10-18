@@ -114,4 +114,17 @@ public class Delivery {
     setDeliveryStatus(DeliveryStatus.DELIVERED.toString());
     setDeliveredConfirmationLink(videoLink);
   }
+
+  /** update this delivery using a update delivery status dto.*/
+  public Delivery updateDelivery(UpdateDeliveryStatusDto updateDeliveryStatusDto) {
+    this.setDeliveryStatus(updateDeliveryStatusDto.getDeliveryStatus());
+
+    if (DeliveryStatus.DELIVERED.toString().equals(updateDeliveryStatusDto.getDeliveryStatus())) {
+      this.setDeliveredConfirmationLink(updateDeliveryStatusDto.getDeliveredConfirmationLink());
+    }
+
+    setLastUpdate();
+
+    return this;
+  }
 }

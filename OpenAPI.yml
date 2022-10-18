@@ -175,8 +175,8 @@ paths:
     put:
       tags:
         - Delivery
-      description: Update delivery by id
-      operationId: updateDelivery
+      description: Update delivery status by id
+      operationId: updateDeliveryStatus
       parameters:
         - name: deliveryIdToUpdate
           in: path
@@ -188,7 +188,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/DeliveryDto'
+              $ref: '#/components/schemas/UpdateDeliveryStatusDto'
       responses:
         '200':
           description: Updated delivery
@@ -315,5 +315,14 @@ components:
           format: int32
           type: integer
         confirmationLink:
+          type: string
+      description: ok
+    UpdateDeliveryStatusDto:
+      type: object
+      properties:
+        deliveredConfirmationLink:
+          required: false
+          type: string
+        deliveryStatus:
           type: string
       description: ok

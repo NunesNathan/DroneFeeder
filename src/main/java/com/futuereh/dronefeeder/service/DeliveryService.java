@@ -1,11 +1,13 @@
 package com.futuereh.dronefeeder.service;
 
 import com.futuereh.dronefeeder.dto.DeliveryDto;
+import com.futuereh.dronefeeder.dto.UpdateDeliveryStatusDto;
 import com.futuereh.dronefeeder.entity.Delivery;
 import com.futuereh.dronefeeder.entity.DeliveryVideo;
 import com.futuereh.dronefeeder.entity.Drone;
 import com.futuereh.dronefeeder.repository.DeliveryRepository;
 import com.futuereh.dronefeeder.repository.DeliveryVideoRepository;
+import com.futuereh.dronefeeder.utils.DeliveryStatus;
 import com.futuereh.dronefeeder.utils.DeliveryType;
 import java.util.List;
 
@@ -42,6 +44,17 @@ public class DeliveryService {
 
   public Delivery getDelivery(Integer delivery) {
     return deliveryRepository.findById(delivery).orElseThrow(RuntimeException::new);
+  }
+
+  /** update one delivery using self id and a delivery dto.*/
+  public Delivery updateDeliveryStatus(Integer deliveryId, UpdateDeliveryStatusDto updateDeliveryStatusDto) {
+    if (DeliveryStatus.isStatus(updateDeliveryStatusDto.getDeliveryStatus())) {
+      Delivery delivery = deliveryRepository
+              .findById(deliveryId).orElseThrow(RuntimeException::new);
+
+      return deliveryRepository.save(delivery.updateDelivery(updateDeliveryStatusDto));
+    }
+    throw new RuntimeException();
   }
 
   public List<DeliveryVideo> getAllLinks() {
