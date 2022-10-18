@@ -44,8 +44,8 @@ public class DroneController {
   }
 
   @DeleteMapping("/{id}")
-  public ResponseEntity<Drone> deleteDrone(@PathVariable("id") Integer droneId) {
-    droneService.deleteById(droneId);
+  public ResponseEntity deleteDrone(@PathVariable("id") Integer droneId) {
+    droneService.deleteDrone(droneId);
     return ResponseEntity.noContent().build();
   }
 

@@ -41,7 +41,7 @@ public class DroneService {
   }
 
   /** delete one drone using self id.*/
-  public void deleteById(Integer droneId) {
+  public void deleteDrone(Integer droneId) {
     droneRepository.findById(droneId).orElseThrow(RuntimeException::new);
 
     droneRepository.deleteById(droneId);
