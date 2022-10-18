@@ -64,6 +64,14 @@ public class DeliveryService {
     deliveryRepository.deleteById(deliveryId);
   }
 
+  /** get delivery owner drone.*/
+  public Drone getDeliveryDrone(Integer deliveryId) {
+    Delivery delivery = deliveryRepository.findById(deliveryId)
+            .orElseThrow(RuntimeException::new);
+
+    return delivery.getDrone();
+  }
+
   public List<DeliveryVideo> getAllLinks() {
     return deliveryVideoRepository.findAll();
   }

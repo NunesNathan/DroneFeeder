@@ -4,6 +4,7 @@ import com.futuereh.dronefeeder.dto.DeliveryDto;
 import com.futuereh.dronefeeder.dto.UpdateDeliveryStatusDto;
 import com.futuereh.dronefeeder.entity.Delivery;
 import com.futuereh.dronefeeder.entity.DeliveryVideo;
+import com.futuereh.dronefeeder.entity.Drone;
 import com.futuereh.dronefeeder.service.DeliveryService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,6 +64,11 @@ public class DeliveryController {
     } catch (Exception e) {
       return ResponseEntity.status(400).body("Invalid delivery id");
     }
+  }
+
+  @GetMapping("/drone/{id}")
+  public ResponseEntity<Drone> getDeliveryDrone(@PathVariable("id") Integer deliveryId) {
+    return ResponseEntity.ok(deliveryService.getDeliveryDrone(deliveryId));
   }
 
   @GetMapping("/links")
