@@ -37,7 +37,7 @@ public class DroneService {
     Drone drone = droneRepository
             .findById(droneId).orElseThrow(RuntimeException::new);
 
-    return drone.updateDrone(droneDto);
+    return droneRepository.save(drone.updateDrone(droneDto));
   }
 
   /** delete one drone using self id.*/
