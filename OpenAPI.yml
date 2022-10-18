@@ -232,6 +232,21 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Drone'
+  '/delivery/links':
+    get:
+      tags:
+        - Links
+      description: Returns all deliveries links
+      operationId: getAllLinks
+      responses:
+        '200':
+          description: Get all deliveries links
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DeliveryVideo'
 components:
   schemas:
     Drone:
@@ -290,3 +305,15 @@ components:
       properties:
         deliveryType:
           type: string
+    DeliveryVideo:
+      type: object
+      properties:
+        id:
+          format: int32
+          type: integer
+        delivery:
+          format: int32
+          type: integer
+        confirmationLink:
+          type: string
+      description: ok

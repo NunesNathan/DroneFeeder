@@ -2,6 +2,7 @@ package com.futuereh.dronefeeder.controller;
 
 import com.futuereh.dronefeeder.dto.DeliveryDto;
 import com.futuereh.dronefeeder.entity.Delivery;
+import com.futuereh.dronefeeder.entity.DeliveryVideo;
 import com.futuereh.dronefeeder.service.DeliveryService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,5 +30,10 @@ public class DeliveryController {
   @GetMapping
   public List<Delivery> getDeliveries() {
     return deliveryService.getDeliveries();
+  }
+
+  @GetMapping("/links")
+  public List<DeliveryVideo> getAllLinks() {
+    return deliveryService.getAllLinks();
   }
 }

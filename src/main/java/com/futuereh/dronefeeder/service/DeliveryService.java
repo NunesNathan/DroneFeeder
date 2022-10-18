@@ -6,10 +6,8 @@ import com.futuereh.dronefeeder.entity.DeliveryVideo;
 import com.futuereh.dronefeeder.entity.Drone;
 import com.futuereh.dronefeeder.repository.DeliveryRepository;
 import com.futuereh.dronefeeder.repository.DeliveryVideoRepository;
-import com.futuereh.dronefeeder.utils.DeliveryStatus;
 import com.futuereh.dronefeeder.utils.DeliveryType;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,5 +38,9 @@ public class DeliveryService {
 
   public List<Delivery> getDeliveries() {
     return deliveryRepository.findAll();
+  }
+
+  public List<DeliveryVideo> getAllLinks() {
+    return deliveryVideoRepository.findAll();
   }
 }
