@@ -57,6 +57,13 @@ public class DeliveryService {
     throw new RuntimeException();
   }
 
+  /** delete one delivery using self id.*/
+  public void deleteDelivery(Integer deliveryId) {
+    deliveryRepository.findById(deliveryId).orElseThrow(RuntimeException::new);
+
+    deliveryRepository.deleteById(deliveryId);
+  }
+
   public List<DeliveryVideo> getAllLinks() {
     return deliveryVideoRepository.findAll();
   }

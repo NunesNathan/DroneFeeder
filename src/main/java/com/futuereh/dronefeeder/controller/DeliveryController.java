@@ -51,6 +51,18 @@ public class DeliveryController {
     }
   }
 
+  /** delete delivery route.*/
+  @DeleteMapping("/{id}")
+  public ResponseEntity deleteDelivery(@PathVariable("id") Integer deliveryId) {
+    try {
+      deliveryService.deleteDelivery(deliveryId);
+
+      return ResponseEntity.noContent().build();
+    } catch (Exception e) {
+      return ResponseEntity.status(400).body("Invalid delivery id");
+    }
+  }
+
   @GetMapping("/links")
   public List<DeliveryVideo> getAllLinks() {
     return deliveryService.getAllLinks();
