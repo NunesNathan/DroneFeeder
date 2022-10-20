@@ -46,24 +46,16 @@ public class DeliveryController {
   public ResponseEntity updateDeliveryStatus(@PathVariable("id") Integer deliveryId,
                                                  @RequestBody UpdateDeliveryStatusDto
                                                          updateDeliveryStatusDto) {
-    try {
-      return ResponseEntity.ok(deliveryService.updateDeliveryStatus(deliveryId,
-              updateDeliveryStatusDto));
-    } catch (Exception e) {
-      return ResponseEntity.status(400).body("Invalid status");
-    }
+    return ResponseEntity.ok(deliveryService.updateDeliveryStatus(deliveryId,
+            updateDeliveryStatusDto));
   }
 
   /** delete delivery route.*/
   @DeleteMapping("/{id}")
   public ResponseEntity deleteDelivery(@PathVariable("id") Integer deliveryId) {
-    try {
-      deliveryService.deleteDelivery(deliveryId);
+    deliveryService.deleteDelivery(deliveryId);
 
-      return ResponseEntity.noContent().build();
-    } catch (Exception e) {
-      return ResponseEntity.status(400).body("Invalid delivery id");
-    }
+    return ResponseEntity.noContent().build();
   }
 
   @GetMapping("/drone/{id}")
