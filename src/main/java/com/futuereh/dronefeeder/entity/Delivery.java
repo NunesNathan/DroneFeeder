@@ -46,7 +46,7 @@ public class Delivery {
     String deliveryStatus = DeliveryStatus.PROCESSING.toString();
     dv.setDeliveredConfirmationLink("The "
             + (deliveryType + " status is: "
-            + deliveryStatus + ", no download link enable").toLowerCase());
+            + deliveryStatus + ", no download link avaliable").toLowerCase());
 
     this.drone = drone;
     this.deliveryType = deliveryType;
@@ -118,6 +118,11 @@ public class Delivery {
   /** update this delivery using a update delivery status dto.*/
   public Delivery updateDelivery(UpdateDeliveryStatusDto updateDeliveryStatusDto) {
     this.setDeliveryStatus(updateDeliveryStatusDto.getDeliveryStatus());
+
+    this.setDeliveredConfirmationLink("The "
+            + (this.deliveryType + " status is: "
+            + updateDeliveryStatusDto.getDeliveryStatus()
+            + ", no download link avaliable").toLowerCase());
 
     if (DeliveryStatus.DELIVERED.toString().equals(updateDeliveryStatusDto.getDeliveryStatus())) {
       this.setDeliveredConfirmationLink(updateDeliveryStatusDto.getDeliveredConfirmationLink());
