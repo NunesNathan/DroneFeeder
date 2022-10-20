@@ -1,0 +1,41 @@
+services:
+  dronefeeder:
+    image: dronefeeder
+    build: .
+    container_name: dronefeeder
+    ports:
+      - 8080:8080
+    environment:
+      - MYSQLDB_HOST=mysqldb
+      - MYSQLDB_USER=root
+      - MYSQLDB_ROOT_PASSWORD=root
+      - MYSQLDB_DATABASE=drone
+      - MYSQLDB_LOCAL_PORT=3306
+    networks:
+      - dronefeeder-mysqldb
+    depends_on:
+      mysqldb:
+        condition: service_healthy
+  mysqldb:
+    image: mysql:8.0
+    container_name: mysqldb
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=drone
+      - MYSQL_PASSWORD=root
+    volumes:
+      - db-data:/var/lib/mysql
+    networks:
+      - dronefeeder-mysqldb
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "--silent"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 30s
+volumes:
+  db-data: {}
+networks:
+  dronefeeder-mysqldb: {}
