@@ -56,6 +56,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Drone'
+        '400':
+          description: Bad requested
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataError'
   '/drone/{droneIdToUpdate}':
     put:
       tags:
@@ -81,6 +87,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Drone'
+        '400':
+          description: Bad requested
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataError'
   '/drone/{droneIdToDelete}':
     delete:
       tags:
@@ -97,6 +109,12 @@ paths:
       responses:
         '204':
           description: Drone with provided id
+        '400':
+          description: Bad requested
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataError'
   '/drone/deliveries/{droneId}':
     get:
       tags:
@@ -119,6 +137,12 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Delivery'
+        '400':
+          description: Bad requested
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataError'
   /delivery:
     post:
       tags:
@@ -137,6 +161,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Delivery'
+        '400':
+          description: Bad requested
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataError'
     get:
       tags:
         - Delivery
@@ -171,6 +201,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Delivery'
+        '400':
+          description: Bad requested
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataError'
   '/delivery/{deliveryIdToUpdate}':
     put:
       tags:
@@ -196,6 +232,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Delivery'
+        '400':
+          description: Bad requested
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataError'
   '/delivery/{deliveryIdToDelete}':
     delete:
       tags:
@@ -212,6 +254,12 @@ paths:
       responses:
         '204':
           description: Delivery with provided id
+        '400':
+          description: Bad requested
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataError'
   '/delivery/drone/{deliveryId}':
     get:
       tags:
@@ -232,6 +280,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Drone'
+        '400':
+          description: Bad requested
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataError'
   '/delivery/links':
     get:
       tags:
@@ -271,6 +325,7 @@ components:
       description: ok
     DroneDto:
       type: object
+      required: [model, latitude, longitude]
       properties:
         model:
           type: string
@@ -302,6 +357,7 @@ components:
       description: ok
     DeliveryDto:
       type: object
+      required: [deliveryType]
       properties:
         deliveryType:
           type: string
@@ -319,10 +375,15 @@ components:
       description: ok
     UpdateDeliveryStatusDto:
       type: object
+      required: [deliveryStatus]
       properties:
         deliveredConfirmationLink:
-          required: false
           type: string
         deliveryStatus:
           type: string
       description: ok
+    DataError:
+      type: object
+      properties:
+        error:
+          type: string
