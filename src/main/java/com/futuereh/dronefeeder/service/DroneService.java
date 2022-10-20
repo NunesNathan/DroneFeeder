@@ -3,6 +3,7 @@ package com.futuereh.dronefeeder.service;
 import com.futuereh.dronefeeder.dto.DroneDto;
 import com.futuereh.dronefeeder.entity.Delivery;
 import com.futuereh.dronefeeder.entity.Drone;
+import com.futuereh.dronefeeder.exception.exceptions.BadRequestDrone;
 import com.futuereh.dronefeeder.repository.DroneRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,30 +29,47 @@ public class DroneService {
     return droneRepository.findAll();
   }
 
+  /** get one drone using self id.*/
   public Drone getDrone(Integer droneId) {
-    return droneRepository.findById(droneId).orElseThrow(RuntimeException::new);
+    try {
+      return droneRepository.findById(droneId).orElseThrow(Exception::new);
+    } catch (Exception e) {
+      throw new BadRequestDrone("find");
+    }
   }
 
   /** update one drone using self id and a drone dto.*/
   public Drone updateDrone(Integer droneId, DroneDto droneDto) {
-    Drone drone = droneRepository
-            .findById(droneId).orElseThrow(RuntimeException::new);
+    try {
+      Drone drone = droneRepository
+              .findById(droneId).orElseThrow(RuntimeException::new);
 
-    return droneRepository.save(drone.updateDrone(droneDto));
+      return droneRepository.save(drone.updateDrone(droneDto));
+    } catch (Exception e) {
+      throw new BadRequestDrone("update");
+    }
   }
 
   /** delete one drone using self id.*/
   public void deleteDrone(Integer droneId) {
-    droneRepository.findById(droneId).orElseThrow(RuntimeException::new);
+    try {
+      droneRepository.findById(droneId).orElseThrow(RuntimeException::new);
 
-    droneRepository.deleteById(droneId);
+      droneRepository.deleteById(droneId);
+    } catch (Exception e) {
+      throw new BadRequestDrone("delete");
+    }
   }
 
   /** get all deliveries by a drone.*/
   public List<Delivery> getDroneDeliveries(Integer droneId) {
-    Drone drone = droneRepository
-            .findById(droneId).orElseThrow(RuntimeException::new);
+    try {
+      Drone drone = droneRepository
+              .findById(droneId).orElseThrow(RuntimeException::new);
 
-    return drone.getDeliveries();
+      return drone.getDeliveries();
+    } catch (Exception e) {
+      throw new BadRequestDrone("get all deliveries of");
+    }
   }
 }
