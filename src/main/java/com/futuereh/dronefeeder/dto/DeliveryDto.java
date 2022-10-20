@@ -4,10 +4,10 @@ public class DeliveryDto {
   private String deliveryType;
 
   public String getDeliveryType() {
-    return deliveryType;
+    return deliveryType.toUpperCase();
   }
 
   public void setDeliveryType(String deliveryType) {
-    this.deliveryType = deliveryType;
+    this.deliveryType = deliveryType.toUpperCase();
   }
 }
